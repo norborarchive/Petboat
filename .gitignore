@@ -1,0 +1,16 @@
+.DS_Store
+.git
+.netbeans.xml
+export.properties
+nbandroid
+proguard.cfg
+release
+gen
+local.properties
+bin
+build.properties
+build.xml
+default.properties
+ant.properties
+project.properties
+
