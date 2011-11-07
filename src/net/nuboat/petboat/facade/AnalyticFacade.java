@@ -4,12 +4,13 @@
  */
 package net.nuboat.petboat.facade;
 
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-import net.nuboat.emergencyboard.R;
-import net.nuboat.emergencyboard.helper.InformationHelper;
+import net.nuboat.petboat.R;
+import net.nuboat.petboat.helper.InformationHelper;
 
 /**
  *

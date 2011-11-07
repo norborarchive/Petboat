@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MainActivity</string>
-    <string name="header_label">nuboat.net</string>
+    <string name="header_label">nuboat.net - Petdo</string>
 
     <string name="evt_webid">UA-22190174-1</string>
     <string name="evt_category">Petboat</string>

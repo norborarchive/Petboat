@@ -5,12 +5,9 @@
 package net.nuboat.petboat.facade;
 
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
-import net.nuboat.emergencyboard.helper.RestClient;
 import net.nuboat.petboat.facade.pojo.EpisodePojo;
 import net.nuboat.petboat.helper.RestClient;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
