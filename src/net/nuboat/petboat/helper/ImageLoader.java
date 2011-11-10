@@ -15,8 +15,9 @@ import java.util.Map;
 
 /**
  *
- * @author Peerapat
- * @email    peerapat@yourchalkbaord.com, nuboat@gmail.com
+ * @author  Peerapat Asoktummarungsri
+ * @email   nuboat@gmail.com
+ * @twitter @nuboat
  */
 public class ImageLoader {
 

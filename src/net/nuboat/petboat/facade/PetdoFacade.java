@@ -1,5 +1,5 @@
 /*
- * ElevationFacade.java
+ * PetdoFacade.java
  * © 2011 nuboat.net. All rights reserved
  */
 package net.nuboat.petboat.facade;
@@ -12,8 +12,9 @@ import org.json.JSONObject;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri, nuboat@gmail.com
- * @since   October 25,2011
+ * @author  Peerapat Asoktummarungsri
+ * @email   nuboat@gmail.com
+ * @twitter @nuboat
  */
 public class PetdoFacade {
 
@@ -30,7 +31,7 @@ public class PetdoFacade {
         RestClient restclient = new RestClient("PetdoFacade");
 
         JSONObject jsonobj = restclient.getJsonbyHttpGet(url);
-        JSONObject latest = jsonobj.getJSONObject("results");
+        JSONObject latest = jsonobj.getJSONObject("result");
 
         EpisodePojo epi = new EpisodePojo();
         epi.setNo(latest.getString("no"));
@@ -40,6 +41,8 @@ public class PetdoFacade {
         epi.setUrl2(latest.getString("url2"));
         epi.setUrl3(latest.getString("url3"));
         epi.setUrl4(latest.getString("url4"));
+
+        Log.d(TAG, "Name: "+epi.getName());
 
         return epi;
 

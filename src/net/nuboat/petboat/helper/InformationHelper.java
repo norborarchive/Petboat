@@ -14,8 +14,9 @@ import android.telephony.TelephonyManager;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri, nuboat@gmail.com
- * @since   October 25,2011
+ * @author  Peerapat Asoktummarungsri
+ * @email   nuboat@gmail.com
+ * @twitter @nuboat
  */
 public class InformationHelper {
 

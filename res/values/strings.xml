@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MainActivity</string>
-    <string name="header_label">nuboat.net - Petdo</string>
+    <string name="app_name">Petboat</string>
+    <string name="header_label">nuboat.net</string>
 
     <string name="evt_webid">UA-22190174-1</string>
     <string name="evt_category">Petboat</string>
     <string name="evt_action_open">Open</string>
     <string name="evt_action_close">Close</string>
+
+    <string name="evt_action_loaded">Loaded</string>
+
     <string name="evt_action_click_next">Next</string>
     <string name="evt_action_click_back">Back</string>
 
