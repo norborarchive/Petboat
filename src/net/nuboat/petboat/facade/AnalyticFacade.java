@@ -42,7 +42,7 @@ public class AnalyticFacade extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
             category = context.getString(R.string.app_name);
-            Log.d(TAG, "Track category:" + category + " action:" + action + " label:" + label + " value:" + value);
+            Log.i(TAG, "Track category:" + category + " action:" + action + " label:" + label + " value:" + value);
 
             tracker.setProductVersion(
                      context.getString(R.string.app_name)

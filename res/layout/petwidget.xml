@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/petwidget"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">"
+
+    <RelativeLayout
+        android:id="@+id/layoutheader"
+        android:background="@drawable/bgheader"
+        android:layout_marginTop="16sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layoutfooter"
+        android:background="@drawable/bgfooter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+        <Button android:id="@+id/btnRead"
+                android:background="@drawable/btnreadfullstory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24sp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutbody"
+        android:background="@drawable/bgbody"
+        android:paddingLeft="24sp"
+        android:paddingRight="24sp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/layoutheader"
+        android:layout_above="@id/layoutfooter"
+        android:layout_alignWithParentIfMissing="true">
+
+        <TextView android:id="@+id/episodename"
+            android:textSize="24sp"
+            android:textColor="#222222"
+            android:maxLines="2"
+            android:paddingTop="4sp"
+            android:paddingBottom="4sp"
+            android:layout_marginLeft="2sp"
+            android:layout_marginRight="2sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView android:id="@+id/figure"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/episodename"
+            android:layout_alignWithParentIfMissing="true" />
+
+    </RelativeLayout>
+
+    <ProgressBar android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
+        android:layout_centerInParent="true" />
+
+    <TextView android:id="@+id/errorMessage"
+        android:text="www.iampetdo.com"
+        android:textSize="24sp"
+        android:textColor="#CCCCCC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

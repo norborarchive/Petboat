@@ -27,13 +27,27 @@ public class ImageLoader {
 
     private ImageLoader() {}
 
-    public static Bitmap getBitmapFromURL(String src) {
+    public static Bitmap getBitmapFromURL(String src) throws Exception {
+
+        if (cache.containsKey(src))
+            return cache.get(src);
+
+        Bitmap bit = getBitmap(src);
+
+        if (bit == null)
+            throw new Exception("Cannot load anything");
+
+        cache.put(src, bit);
+
+        return bit;
+
+    }
+
+    private static Bitmap getBitmap(String src) {
         Bitmap bit = null;
 
-        try {
-            if (cache.containsKey(src) )
-                bit = cache.get(src);
-            else {
+        for (int i=0; i<3; i++) {
+            try {
                 URL url = new URL(src);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);
@@ -41,18 +55,15 @@ public class ImageLoader {
                 InputStream input = connection.getInputStream();
                 bit = BitmapFactory.decodeStream(input);
 
-                //int width=48;
-                //int height=48;
+                return bit;
 
-                //bit = Bitmap.createScaledBitmap(b, width, height, true);
-                cache.put(src, bit);
+            } catch(Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
             }
-        } catch(Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+
         }
+        return null;
 
-        return bit;
     }
-
 
 }

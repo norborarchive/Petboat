@@ -27,7 +27,7 @@ public class PetdoFacade {
 
         String url = getUrl(context);
 
-        Log.d(TAG, "Call : " + url);
+        Log.i(TAG, "Call : " + url);
         RestClient restclient = new RestClient("PetdoFacade");
 
         JSONObject jsonobj = restclient.getJsonbyHttpGet(url);
@@ -42,7 +42,7 @@ public class PetdoFacade {
         epi.setUrl3(latest.getString("url3"));
         epi.setUrl4(latest.getString("url4"));
 
-        Log.d(TAG, "Name: "+epi.getName());
+        Log.i(TAG, "Name: "+epi.getName());
 
         return epi;
 

@@ -6,6 +6,7 @@ package net.nuboat.petboat;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,14 +27,12 @@ public class ShowActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.show);
 
-        listPhotos = new String[4];
-        listPhotos[0] = "";
-        listPhotos[1] = "";
-        listPhotos[2] = "";
-        listPhotos[3] = "";
+        listPhotos = new String[] {"", "", "", ""};
 
         TextView header = (TextView) this.findViewById(R.id.show_header);
         header.setText( Cache.episode.getName() );
@@ -43,6 +42,8 @@ public class ShowActivity extends ListActivity {
 
     @Override
     public void onPause() {
+        Log.d(TAG, "onPause");
+
         super.onPause();
         finish();
     }

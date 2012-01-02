@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,8 +31,9 @@ public class MainActivity extends Activity {
     private ProgressDialog pd;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -41,8 +43,21 @@ public class MainActivity extends Activity {
 
         pd = ProgressDialog.show(this, null, null, true, false);
         pd.setMessage("Loading from iampetdo.com");
-
         new DownloadPetdo().execute(this);
+
+//        if (PetServices.episode == null) {
+//            pd = ProgressDialog.show(this, null, null, true, false);
+//            pd.setMessage("Loading from iampetdo.com");
+//            new DownloadPetdo().execute(this);
+//        }
+//        else {
+//            Cache.episode = PetServices.episode;
+//            Cache.figure = PetServices.figure;
+//
+//            Intent intent = new Intent(this, ShowActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//        }
 
     }
 
@@ -66,17 +81,20 @@ public class MainActivity extends Activity {
                 String label = episode.getNo() + "-" + episode.getName();
                 new AnalyticFacade(context, action, label, 1).execute();
 
-                if ( Cache.episode == null )
-                    saveEpisode(episode);
-                else if ( !episode.getNo().equals( Cache.episode.getNo()) )
+                int currentepisode = (Cache.episode != null) ? Integer.parseInt(Cache.episode.getNo()) : 0;
+                int lastestepisode = Integer.parseInt(episode.getNo());
+                if (lastestepisode > currentepisode)
                     saveEpisode(episode);
 
+                result = "success";
             } catch (Exception ex) {
                 Log.e(TAG, Log.getStackTraceString(ex));
 
                 String action = context.getString(R.string.evt_action_error);
                 String label = ex.getMessage();
                 new AnalyticFacade(context, action, label, 1).execute();
+
+                result = "fail";
             } finally {
                 pd.dismiss();
             }
@@ -88,19 +106,27 @@ public class MainActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Intent intent = new Intent(context, ShowActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            if( "fail".equals(result) ) {
+                return; // Show Error Screen.
 
-            finish();
+            } else {
+                Intent intent = new Intent(context, ShowActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+                finish();
+            }
         }
 
-        private void saveEpisode(EpisodePojo episode) {
-            Cache.episode = episode;
-            Cache.figure[0] = ImageLoader.getBitmapFromURL(Cache.episode.getUrl1());
-            Cache.figure[1] = ImageLoader.getBitmapFromURL(Cache.episode.getUrl2());
-            Cache.figure[2] = ImageLoader.getBitmapFromURL(Cache.episode.getUrl3());
-            Cache.figure[3] = ImageLoader.getBitmapFromURL(Cache.episode.getUrl4());
+        private void saveEpisode(EpisodePojo epi) throws Exception {
+            Bitmap []buffer = new Bitmap[4];
+            buffer[0] = ImageLoader.getBitmapFromURL(epi.getUrl1()); Log.i(TAG, "Loaded URL1");
+            buffer[1] = ImageLoader.getBitmapFromURL(epi.getUrl2()); Log.i(TAG, "Loaded URL2");
+            buffer[2] = ImageLoader.getBitmapFromURL(epi.getUrl3()); Log.i(TAG, "Loaded URL3");
+            buffer[3] = ImageLoader.getBitmapFromURL(epi.getUrl4()); Log.i(TAG, "Loaded URL4");
+
+            Cache.episode = epi;
+            Cache.figure = buffer;
         }
 
     }
