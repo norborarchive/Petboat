@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import net.nuboat.petboat.facade.AnalyticFacade;
+import net.nuboat.petboat.helper.InformationHelper;
 
 /**
  *
@@ -38,10 +40,14 @@ public class PetWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Log.i(TAG, "onUpdate");
 
+        String action = context.getString(R.string.evt_action_activate_widget);
+        String label = InformationHelper.getPhonedetail(context);
+        new AnalyticFacade(context, action, label, 1).execute();
+
         Intent i = new Intent(context, PetServices.class);
         i.putExtra("isScreenOn", true);
+        i.putExtra("isCheckTime", false);
         context.startService(i);
-
 
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
@@ -49,6 +55,10 @@ public class PetWidget extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         Log.i(TAG, "onDeleted");
+
+        String action = context.getString(R.string.evt_action_deactivate_widget);
+        String label = InformationHelper.getPhonedetail(context);
+        new AnalyticFacade(context, action, label, 1).execute();
 
         super.onDeleted(context, appWidgetIds);
     }
@@ -67,13 +77,23 @@ public class PetWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
     }
 
+    public static void updateScreen(Context context, String message) {
+        Log.i(TAG, "updateScreen");
+        RemoteViews rvs = new RemoteViews(context.getPackageName(), R.layout.petwidget);
+
+        rvs.setTextViewText(R.id.errorMessage, message);
+        rvs.setViewVisibility(R.id.errorMessage, View.VISIBLE);
+        rvs.setViewVisibility(R.id.figure, View.GONE);
+
+        updateWidget(context, rvs);
+    }
+
     public static void updateScreen(Context context, String name, Bitmap figure1) {
         Log.i(TAG, "updateScreen");
         RemoteViews rvs = new RemoteViews(context.getPackageName(), R.layout.petwidget);
 
         rvs.setViewVisibility(R.id.errorMessage, View.GONE);
-        rvs.setViewVisibility(R.id.progressBar, View.GONE);
-
+        //rvs.setViewVisibility(R.id.progressBar, View.GONE);
         rvs.setTextViewText(R.id.episodename, name);
         rvs.setImageViewBitmap(R.id.figure, figure1);
 
