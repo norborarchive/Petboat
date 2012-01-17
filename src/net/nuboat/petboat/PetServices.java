@@ -85,10 +85,10 @@ public class PetServices extends Service {
                 new AnalyticFacade(this, action, label, 1).execute();
 
                 saveEpisode(epi);
-                notificationAlert(episode.getName());
+                //notificationAlert(episode.getName());
             }
 
-            PetWidget.updateScreen(this, episode.getName(), figure[0]);
+            PetWidget.updateScreen(this, epi.getName(), figure[0]);
 
         } catch (Exception ex) {
             Log.e(TAG, Log.getStackTraceString(ex));

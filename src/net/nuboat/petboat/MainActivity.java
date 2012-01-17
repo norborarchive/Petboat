@@ -28,8 +28,6 @@ public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
 
-    private ProgressDialog pd;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
@@ -41,24 +39,7 @@ public class MainActivity extends Activity {
         String label = InformationHelper.getPhonedetail(this);
         new AnalyticFacade(this, action, label, 1).execute();
 
-        pd = ProgressDialog.show(this, null, null, true, false);
-        pd.setMessage("Loading from iampetdo.com");
         new DownloadPetdo().execute(this);
-
-//        if (PetServices.episode == null) {
-//            pd = ProgressDialog.show(this, null, null, true, false);
-//            pd.setMessage("Loading from iampetdo.com");
-//            new DownloadPetdo().execute(this);
-//        }
-//        else {
-//            Cache.episode = PetServices.episode;
-//            Cache.figure = PetServices.figure;
-//
-//            Intent intent = new Intent(this, ShowActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//        }
-
     }
 
     @Override
@@ -95,8 +76,6 @@ public class MainActivity extends Activity {
                 new AnalyticFacade(context, action, label, 1).execute();
 
                 result = "fail";
-            } finally {
-                pd.dismiss();
             }
 
             return result;
@@ -106,16 +85,14 @@ public class MainActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if( "fail".equals(result) ) {
-                return; // Show Error Screen.
-
-            } else {
+            if( "success".equals(result) ) {
                 Intent intent = new Intent(context, ShowActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
-                finish();
             }
+
+            finish();
+
         }
 
         private void saveEpisode(EpisodePojo epi) throws Exception {

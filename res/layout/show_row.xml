@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ADFF20"
+    android:paddingTop="8sp"
+    android:paddingBottom="8sp"
+    android:paddingRight="8sp"
+    android:paddingLeft="8sp"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#ADFF2F"
-    android:paddingTop="4sp"
-    android:paddingBottom="4sp">
+    android:layout_height="fill_parent">
 
     <ImageView android:id="@+id/show_photos"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
     <TextView android:id="@+id/show_figure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:maxLines="1" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </RelativeLayout>

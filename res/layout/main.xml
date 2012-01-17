@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<LinearLayout android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
+    <RelativeLayout android:id="@+id/layoutProgressBar"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <ImageView android:id="@+id/splashlogo"
+            android:src="@drawable/petdo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+        <ProgressBar android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="36sp"
+            android:layout_height="36sp"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/splashlogo"
+            android:layout_alignWithParentIfMissing="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

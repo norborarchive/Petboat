@@ -4,8 +4,11 @@
  */
 package net.nuboat.petboat;
 
+import android.app.Activity;
 import android.app.ListActivity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,8 @@ public class ShowActivity extends ListActivity {
 
     private String [] listPhotos;
 
+    private Activity context;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -37,6 +42,7 @@ public class ShowActivity extends ListActivity {
         TextView header = (TextView) this.findViewById(R.id.show_header);
         header.setText( Cache.episode.getName() );
 
+        context = this;
         setListAdapter(new ShowAdapter());
     }
 
@@ -58,9 +64,19 @@ public class ShowActivity extends ListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = super.getView(position, convertView, parent);
 
-            ImageView icon = (ImageView) row.findViewById(R.id.show_photos);
-            icon.setImageBitmap( Cache.figure[position] );
+            Bitmap bit = Cache.figure[position];
 
+            ImageView img = (ImageView) row.findViewById(R.id.show_photos);
+            img.setImageBitmap(bit);
+
+            DisplayMetrics dm = new DisplayMetrics();
+            context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+            int width = dm.widthPixels;
+            int height = width * bit.getHeight() / bit.getWidth(); //mainImage is the Bitmap I'm drawing
+            img.setMinimumWidth(width);
+            img.setMinimumHeight(height);
+            
             return row;
         }
     }
