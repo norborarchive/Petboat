@@ -40,11 +40,10 @@ public class ImageLoader {
         cache.put(src, bit);
 
         return bit;
-
     }
 
     private static Bitmap getBitmap(String src) {
-        Bitmap bit = null;
+        Bitmap bit;
 
         for (int i=0; i<3; i++) {
             try {

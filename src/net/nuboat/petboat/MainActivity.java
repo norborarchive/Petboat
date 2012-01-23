@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
             super.onPostExecute(result);
 
             if( "success".equals(result) ) {
-                Intent intent = new Intent(context, ShowActivity.class);
+                Intent intent = new Intent(context, LatestActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

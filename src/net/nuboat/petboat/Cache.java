@@ -17,6 +17,7 @@ public class Cache {
 
     private Cache() {}
 
+    public static String episodeno;
     public static EpisodePojo episode;
 
     public static Bitmap []figure = new Bitmap[4];

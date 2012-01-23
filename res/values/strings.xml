@@ -12,9 +12,7 @@
     <string name="evt_action_deactivate_widget">DeactivatedWidget</string>
 
     <string name="evt_action_loaded">Loaded</string>
-
-    <string name="evt_action_click_next">Next</string>
-    <string name="evt_action_click_back">Back</string>
+    <string name="evt_action_loadedlist">Loaded List</string>
 
     <string name="evt_action_error">Error</string>
 </resources>

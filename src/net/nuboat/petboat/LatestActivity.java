@@ -6,11 +6,13 @@ package net.nuboat.petboat;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,9 +25,9 @@ import android.widget.TextView;
  * @email   nuboat@gmail.com
  * @twitter @nuboat
  */
-public class ShowActivity extends ListActivity {
+public class LatestActivity extends ListActivity {
 
-    private static final String TAG = "ShowActivity";
+    private static final String TAG = "LatestActivity";
 
     private String [] listPhotos = new String[] {"", "", "", ""};
 
@@ -42,15 +44,25 @@ public class ShowActivity extends ListActivity {
         TextView header = (TextView) this.findViewById(R.id.show_header);
         header.setText( Cache.episode.getName() );
 
-        ((Button) findViewById(R.id.btn_arrow)).setVisibility(View.GONE);
-        
+        ((Button) findViewById(R.id.btn_arrow)).setVisibility(View.VISIBLE);
+        ((Button) findViewById(R.id.btn_arrow)).setOnClickListener(
+            new OnClickListener() {
+                @Override public void onClick(View v) {
+                    Cache.episodeno = Cache.episode.getNo();
+
+                    Intent intent = new Intent(context, EpisodeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            } );
+
         setListAdapter(new ShowAdapter());
     }
 
     private class ShowAdapter extends ArrayAdapter<String> {
 
         public ShowAdapter() {
-            super(ShowActivity.this, R.layout.show_row, R.id.show_figure, listPhotos);
+            super(LatestActivity.this, R.layout.show_row, R.id.show_figure, listPhotos);
         }
 
         @Override
