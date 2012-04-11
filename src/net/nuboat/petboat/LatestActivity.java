@@ -1,5 +1,5 @@
 /*
- * ShowActivity.java
+ * LatestActivity.java
  * © 2011 nuboat.net. All rights reserved
  */
 package net.nuboat.petboat;
@@ -14,16 +14,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri
- * @email   nuboat@gmail.com
- * @twitter @nuboat
+ * @author  Peerapat Asoktummarungsri [nuboat@gmail.com]
  */
 public class LatestActivity extends ListActivity {
 
@@ -31,15 +29,23 @@ public class LatestActivity extends ListActivity {
 
     private String [] listPhotos = new String[] {"", "", "", ""};
 
+	private AdView adView;
     private Activity context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
+		context = this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show);
 
-        context = this;
+		AdRequest adRequest = new AdRequest();
+		//adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+
+        adView = new AdView(this, AdSize.BANNER, "a14f64b66fd1372");
+		adView.loadAd(adRequest);
+        ((RelativeLayout)findViewById(R.id.layout_showads)).addView(adView);
 
         TextView header = (TextView) this.findViewById(R.id.show_header);
         header.setText( Cache.episode.getName() );
@@ -58,6 +64,15 @@ public class LatestActivity extends ListActivity {
 
         setListAdapter(new ShowAdapter());
     }
+
+	@Override
+	public void onDestroy() {
+		if (adView != null) {
+			adView.destroy();
+		}
+
+		super.onDestroy();
+	}
 
     private class ShowAdapter extends ArrayAdapter<String> {
 

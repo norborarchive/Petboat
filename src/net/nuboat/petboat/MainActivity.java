@@ -5,7 +5,6 @@
 package net.nuboat.petboat;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,12 +19,10 @@ import net.nuboat.petboat.helper.InformationHelper;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri
- * @email   nuboat@gmail.com
- * @twitter @nuboat
+ * @author  Peerapat Asoktummarungsri [nuboat@gmail.com]
  */
 public class MainActivity extends Activity {
-
+    
     private static final String TAG = "MainActivity";
 
     @Override
@@ -47,7 +44,12 @@ public class MainActivity extends Activity {
         super.onPause();
         finish();
     }
-
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+    
     private class DownloadPetdo extends AsyncTask<Context, Integer, String> {
         private String result;
         private Context context;
@@ -97,10 +99,10 @@ public class MainActivity extends Activity {
 
         private void saveEpisode(EpisodePojo epi) throws Exception {
             Bitmap []buffer = new Bitmap[4];
-            buffer[0] = ImageLoader.getBitmapFromURL(epi.getUrl1()); Log.i(TAG, "Loaded URL1");
-            buffer[1] = ImageLoader.getBitmapFromURL(epi.getUrl2()); Log.i(TAG, "Loaded URL2");
-            buffer[2] = ImageLoader.getBitmapFromURL(epi.getUrl3()); Log.i(TAG, "Loaded URL3");
-            buffer[3] = ImageLoader.getBitmapFromURL(epi.getUrl4()); Log.i(TAG, "Loaded URL4");
+            buffer[0] = ImageLoader.getBitmapFromURL(epi.getUrl1(), epi.getNo(), "1"); Log.i(TAG, "Loaded URL1");
+            buffer[1] = ImageLoader.getBitmapFromURL(epi.getUrl2(), epi.getNo(), "2"); Log.i(TAG, "Loaded URL2");
+            buffer[2] = ImageLoader.getBitmapFromURL(epi.getUrl3(), epi.getNo(), "3"); Log.i(TAG, "Loaded URL3");
+            buffer[3] = ImageLoader.getBitmapFromURL(epi.getUrl4(), epi.getNo(), "4"); Log.i(TAG, "Loaded URL4");
 
             Cache.episode = epi;
             Cache.figure = buffer;

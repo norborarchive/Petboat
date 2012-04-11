@@ -8,13 +8,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 import java.util.Calendar;
@@ -26,18 +24,16 @@ import net.nuboat.petboat.helper.ImageLoader;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri
- * @email   nuboat@gmail.com
- * @twitter @nuboat
+ * @author  Peerapat Asoktummarungsri [nuboat@gmail.com]
  */
 public class PetServices extends Service {
 
     private static final String TAG = "PetServices";
 
-    public static EpisodePojo episode = null;
-    public static Bitmap []figure = new Bitmap[4];
+	public Date lastload = null;
 
-    public Date lastload = null;
+	public static Bitmap figure = null;
+    public static EpisodePojo episode = null;
 
     private NotificationManager mNotificationManager;
 
@@ -74,21 +70,12 @@ public class PetServices extends Service {
             return;
 
         try {
-            //int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-            EpisodePojo epi = PetdoFacade.findLatestestEpisode(this);
 
-            int currentepisode = (episode != null) ? Integer.parseInt(episode.getNo()) : 0;
-            int lastestepisode = Integer.parseInt(epi.getNo());
-            if (lastestepisode > currentepisode) {
-                String action = this.getString(R.string.evt_action_loaded);
-                String label = epi.getNo() + "-" + epi.getName();
-                new AnalyticFacade(this, action, label, 1).execute();
+            episode = PetdoFacade.findLatestestEpisode(this);
+			imageload(episode);
 
-                saveEpisode(epi);
-                //notificationAlert(episode.getName());
-            }
-
-            PetWidget.updateScreen(this, epi.getName(), figure[0]);
+			if (episode != null && figure != null)
+				PetWidget.updateScreen(this, episode.getName(), figure);
 
         } catch (Exception ex) {
             Log.e(TAG, Log.getStackTraceString(ex));
@@ -97,9 +84,9 @@ public class PetServices extends Service {
             String label = ex.getMessage();
             new AnalyticFacade(this, action, label, 1).execute();
 
-            PetWidget.updateScreen(this, label);
         } finally {
             lastload = Calendar.getInstance().getTime();
+
         }
 
     }
@@ -110,15 +97,12 @@ public class PetServices extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void saveEpisode(EpisodePojo epi) throws Exception {
-        Bitmap []buffer = new Bitmap[4];
-        buffer[0] = ImageLoader.getBitmapFromURL(epi.getUrl1()); Log.i(TAG, "Loaded URL1");
-        buffer[1] = ImageLoader.getBitmapFromURL(epi.getUrl2()); Log.i(TAG, "Loaded URL2");
-        buffer[2] = ImageLoader.getBitmapFromURL(epi.getUrl3()); Log.i(TAG, "Loaded URL3");
-        buffer[3] = ImageLoader.getBitmapFromURL(epi.getUrl4()); Log.i(TAG, "Loaded URL4");
+    private void imageload(EpisodePojo epi) throws Exception {
+        figure = ImageLoader.getBitmapFromURL(epi.getUrl1(), epi.getNo(), "1");
 
-        episode = epi;
-        figure = buffer;
+		ImageLoader.getBitmapFromURL(epi.getUrl2(), epi.getNo(), "2");
+        ImageLoader.getBitmapFromURL(epi.getUrl3(), epi.getNo(), "3");
+        ImageLoader.getBitmapFromURL(epi.getUrl4(), epi.getNo(), "4");
     }
 
     private void notificationAlert(String contentTitle) {
@@ -130,7 +114,7 @@ public class PetServices extends Service {
         CharSequence tickerText   = "A new episode of Petdo is released.";
 
         Context context = getApplicationContext();
-        //CharSequence contentTitle = "A new episode of Petdo is released.";
+
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 

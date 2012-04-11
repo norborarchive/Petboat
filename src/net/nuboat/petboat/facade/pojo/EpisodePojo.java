@@ -6,8 +6,7 @@ package net.nuboat.petboat.facade.pojo;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri, nuboat@gmail.com
- * @since   November 7,2011
+ * @author  Peerapat Asoktummarungsri [nuboat@gmail.com]
  */
 public class EpisodePojo {
 

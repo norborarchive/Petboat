@@ -13,9 +13,7 @@ import net.nuboat.petboat.helper.InformationHelper;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri
- * @email   nuboat@gmail.com
- * @twitter @nuboat
+ * @author  Peerapat Asoktummarungsri [nuboat@gmail.com]
  */
 public class AnalyticFacade extends AsyncTask<Void, Void, Void> {
 

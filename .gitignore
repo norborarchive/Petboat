@@ -4,7 +4,7 @@
 export.properties
 nbandroid
 proguard.cfg
-release
+released
 gen
 local.properties
 bin

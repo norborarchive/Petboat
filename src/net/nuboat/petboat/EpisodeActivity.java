@@ -1,5 +1,5 @@
 /*
- * ShowActivity.java
+ * EpisodeActivity.java
  * © 2011 nuboat.net. All rights reserved
  */
 package net.nuboat.petboat;
@@ -26,9 +26,7 @@ import net.nuboat.petboat.helper.ImageLoader;
 
 /**
  *
- * @author  Peerapat Asoktummarungsri
- * @email   nuboat@gmail.com
- * @twitter @nuboat
+ * @author  Peerapat Asoktummarungsri [nuboat@gmail.com]
  */
 public class EpisodeActivity extends ListActivity {
 
@@ -184,10 +182,10 @@ public class EpisodeActivity extends ListActivity {
 
         private void saveEpisode(EpisodePojo epi) throws Exception {
             Bitmap []buffer = new Bitmap[4];
-            buffer[0] = ImageLoader.getBitmapFromURL(epi.getUrl1()); Log.i(TAG, "Loaded URL1");
-            buffer[1] = ImageLoader.getBitmapFromURL(epi.getUrl2()); Log.i(TAG, "Loaded URL2");
-            buffer[2] = ImageLoader.getBitmapFromURL(epi.getUrl3()); Log.i(TAG, "Loaded URL3");
-            buffer[3] = ImageLoader.getBitmapFromURL(epi.getUrl4()); Log.i(TAG, "Loaded URL4");
+            buffer[0] = ImageLoader.getBitmapFromURL(epi.getUrl1(), epi.getNo(), "1"); Log.i(TAG, "Loaded URL1");
+            buffer[1] = ImageLoader.getBitmapFromURL(epi.getUrl2(), epi.getNo(), "2"); Log.i(TAG, "Loaded URL2");
+            buffer[2] = ImageLoader.getBitmapFromURL(epi.getUrl3(), epi.getNo(), "3"); Log.i(TAG, "Loaded URL3");
+            buffer[3] = ImageLoader.getBitmapFromURL(epi.getUrl4(), epi.getNo(), "4"); Log.i(TAG, "Loaded URL4");
 
             Cache.episode = epi;
             Cache.figure = buffer;
