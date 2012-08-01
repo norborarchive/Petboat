@@ -35,11 +35,17 @@ public class ImageLoader {
 
 		filepath += FILEDIR + "/" + filename + FILETYPE;
 
-        return new File(filepath).exists();
+        File file = new File(filepath);
+
+        if (!file.exists() || file.length() == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static Bitmap getBitmapFromURL(String src, String episode, String order) throws Exception {
-		Bitmap bit = null;
+		Bitmap bit;
 		String filename = episode + "_" + order;
 		String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
@@ -50,7 +56,7 @@ public class ImageLoader {
 
 		filepath += "/" + filename + FILETYPE;
 		File file = new File(filepath);
-		if (file.exists())
+		if (file.exists() && file.length() != 0)
 			bit = BitmapFactory.decodeFile(filepath);
 		else
 			bit = getBitmap(src, filepath);
